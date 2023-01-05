@@ -1,0 +1,159 @@
+<div class="container d-flex flex-column">
+    <div class="d-flex justify-content-center">
+        <h5 class="display-5">Ingrese los Datos de la factura -- Numero {{numbill}}</h5>
+    </div>
+
+    <div class="d-flex justify-content-center" *ngIf="activebill ==false">
+        <div class="row g-3 align-items-center d-flex justify-content-between">
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="Client" class="form-label">Nombre y Apellido del Cliente</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" name="Client" id="Client" class="form-control" [(ngModel)]="client" />
+                </div>
+            </div>
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="DocumentClient" class="form-label">Documento del cliente</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" name="DocumentClient" id="DocumentClient" class="form-control"
+                        [(ngModel)]="documentclient" />
+                </div>
+            </div>
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="NumberClient" class="form-label">Contacto del Cliente</label>
+                </div>
+                <div class="col-6">
+                    <input type="number" name="NumberClient" id="NumberClient" class="form-control"
+                        [(ngModel)]="numberclient" />
+                </div>
+            </div>
+            <div class="col-auto d-flex align-items-center justify-content-center" id="saveBtn">
+                <button class="btn btn-danger btn-outline-light btn-floating" [routerLink]="['/']">Cancelar</button>
+            </div>
+            <div class="col-auto d-flex align-items-center justify-content-center" id="saveBtn">
+                <button type="submit" class="btn btn-success btn-outline-light btn-floating my-3"
+                    (click)="createproduct()" *ngIf="activebill ==false">Agregar
+                    Producto</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-center" *ngIf="activeproduct ==true">
+        <div class="row g-3 align-items-center d-flex justify-content-between">
+            <div class="container d-flex flex-column">
+                <div class="d-flex justify-content-center">
+                    <h5 class="display-5">Ingrese los Productos</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center" *ngIf="activeproduct ==true">
+        <div class="row g-3 align-items-center d-flex justify-content-between">
+            <div class="col-auto">
+                <label for="category" class="form-label">Categoria</label>
+            </div>
+            <div class="col-6">
+                <select class="form-control" [(ngModel)]="CategoryFind" (ngModelChange)="getproductByCategory()">
+                    <option *ngFor="let Categories of Category" [value]="Categories.type">
+                        {{Categories.type}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="category" class="form-label">Producto</label>
+                </div>
+                <div class="col-6">
+                    <select class="form-control" [(ngModel)]="productselect" (ngModelChange)="getproduct()">
+                        <option *ngFor="let data of products" [value]="data.name">{{data.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="PriceUnit" class="form-label">Precio Unitario</label>
+                </div>
+                <div class="col-6">
+                    <label for="category" class="form-label">{{priceUnit}}</label>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="NumberClient" class="form-label">Cantidad</label>
+                </div>
+                <div class="col-6">
+                    <input type="number" name="amount" id="amount" class="form-control" [(ngModel)]="amount"
+                        (ngModelChange)="TotalPrice()" />
+                </div>
+            </div>
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="Total" class="form-label">Total Producto</label>
+                </div>
+                <div class="col-6">
+                    <label for="Total" class="form-label">{{totalProduct}}</label>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="Total" class="form-label">Total Factura</label>
+                </div>
+                <div class="col-6">
+                    <label for="Total" class="form-label">{{totalBill}}</label>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center d-flex justify-content-between" *ngIf="activetable ==true">
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of orderArr">
+                            <td> {{data.Name}}
+                            </td>
+                            <td> {{data.UnitPrice}}
+                            </td>
+                            <td> {{data.Amount}}
+                            </td>
+                            <td> {{data.Subtotal}}
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-auto d-flex align-items-center justify-content-center" id="saveBtn">
+                <button type="submit" class="btn btn-success btn-outline-light btn-floating my-3"
+                    (click)="AddProducts()">Agregar Producto</button>
+            </div>
+            <div class="col-auto d-flex align-items-center justify-content-center" id="saveBtn">
+                <button type="submit" class="btn btn-success btn-outline-light btn-floating my-3" (click)="saveBill()"
+                    *ngIf="activebutton ==true">Confirmar Factura</button>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center" *ngIf="activemessage ==true">
+        <div class="row g-3 align-items-center d-flex justify-content-between">
+            <div class="alert alert-success col-auto" role="alert">
+                {{message}}
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center" *ngIf="activebuttonsave ==true">
+        <div class="row g-3 align-items-center d-flex justify-content-between">
+            <div class="col-auto d-flex align-items-center justify-content-center" id="saveBtn">
+                <button class="btn btn-danger btn-outline-light btn-floating" [routerLink]="['/']">Volver</button>
+            </div>
+        </div>
+    </div>

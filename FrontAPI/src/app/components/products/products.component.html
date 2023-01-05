@@ -1,0 +1,61 @@
+<div class="container d-flex flex-column">
+    <div class="d-flex justify-content-center">
+        <h5 class="display-5">Ingrese los Datos del Producto</h5>
+    </div>
+
+    <div class="d-flex justify-content-center" *ngIf="activeCategory == false ">
+        <form [formGroup]="register_product" (ngSubmit)="submitproduct()">
+
+            <div class="row g-3 align-items-center d-flex justify-content-between">
+                <div class="col-auto">
+                    <label for="name" class="form-label">Nombre</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" name="name" id="name" formControlName="name" class="form-control" />
+                </div>
+                <div class="row g-3 align-items-center d-flex justify-content-between">
+                    <div class="col-auto">
+                        <label for="stock" class="form-label">Stock</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" name="stock" id="stock" formControlName="stock" class="form-control" />
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center d-flex justify-content-between">
+                    <div class="col-auto">
+                        <label for="price" class="form-label">Price</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" name="price" id="price" formControlName="price" class="form-control" />
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center d-flex justify-content-between">
+                    <div class="col-auto">
+                        <label for="category" class="form-label">Categoria</label>
+                    </div>
+                    <div class="col-6">
+                        <select formControlName="idCategory" class="form-control">
+                            <option *ngFor="let Categories of Category" [value]="Categories.id">{{Categories.type}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto d-flex align-items-center justify-content-center" id="saveBtn">
+                    <button class="btn btn-danger btn-outline-light btn-floating" [routerLink]="['/']">Cancelar</button>
+                </div>
+                <div class="col-auto d-flex align-items-center justify-content-center" id="saveBtn">
+                    <button type="submit" class="btn btn-success btn-outline-light btn-floating my-3">Guardar</button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+    <div class="alert alert-success col-auto" role="alert" *ngIf="activemessage ==true">
+        {{message}}
+    </div>
+    <div class="alert alert-success col-auto" role="alert" *ngIf="activeCategory ==true">
+        <button class="btn btn-dark btn-outline-light btn-floating" [routerLink]="['/newcategory']">Nueva Categoria</button>
+    </div>
+   
+</div>
