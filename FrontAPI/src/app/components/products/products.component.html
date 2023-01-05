@@ -54,8 +54,8 @@
     <div class="alert alert-success col-auto" role="alert" *ngIf="activemessage ==true">
         {{message}}
     </div>
-    <div class="alert alert-success col-auto" role="alert" *ngIf="activeCategory ==true">
-        <button class="btn btn-dark btn-outline-light btn-floating" [routerLink]="['/newcategory']">Nueva Categoria</button>
+    <div class="col-auto d-flex align-items-center justify-content-center" id="saveBtn" *ngIf="activeCategory ==true">
+        <button class="btn btn-danger btn-outline-light btn-floating" [routerLink]="['/newcategory']">Nueva Categoria</button>
     </div>
    
 </div>

@@ -53,39 +53,13 @@ export class BillComponent implements OnInit {
       })
     this.billservice.getBill().subscribe(
       data => {
-        this.numbill = data.numBill
-        this.idbill = data.id
-      })
-  }
-  saveBill() {
-    this.bill = {
-      Client: this.client,
-      DocumentClient: this.documentclient,
-      NumberClient: this.numberclient,
-      Total: this.totalBill
-    }
-    this.billservice.saveBill(this.bill).subscribe(
-      data => {
-        this.idbill = data.id
-        this.orderArr.forEach(element => {
-          element.IdBill = this.idbill
-          this.detailbillservice.saveDetail(element).subscribe(
-            data => {
-              
-              this.productarr.forEach(element => {
-                this.productservice.updateproduct(element).subscribe(
-                  data => {
-                    this.activemessage = true
-                    this.message = "Se cargo correctamente la factura Numero: " + this.numbill
-                    this.activeproduct = false
-                    this.activebill = true
-                    this.activebuttonsave = true
-                  })
-              })
-            })
-        });
-      })
 
+        this.numbill = data.numBill
+        if (this.numbill == 0) {
+          this.numbill = 1000
+        }
+        this.idbill = data.id
+      })
   }
   getproductByCategory() {
     this.productservice.getProductByCategory(this.CategoryFind).subscribe(
@@ -161,5 +135,36 @@ export class BillComponent implements OnInit {
       this.activemessage = true
       this.message = "Verifique los datos cargados"
     }
+  }
+  saveBill() {
+    this.bill = {
+      Client: this.client,
+      DocumentClient: this.documentclient,
+      NumberClient: this.numberclient,
+      Total: this.totalBill
+    }
+    this.billservice.saveBill(this.bill).subscribe(
+      data => {
+        this.idbill = data.id
+        this.numbill = data.numBill
+        this.orderArr.forEach(element => {
+          element.IdBill = this.idbill
+          this.detailbillservice.saveDetail(element).subscribe(
+            data => {
+
+              this.productarr.forEach(element => {
+                this.productservice.updateproduct(element).subscribe(
+                  data => {
+                    this.activemessage = true
+                    this.message = "Se cargo correctamente la factura Numero: " + this.numbill
+                    this.activeproduct = false
+                    this.activebill = true
+                    this.activebuttonsave = true
+                  })
+              })
+            })
+        });
+      })
+
   }
 }

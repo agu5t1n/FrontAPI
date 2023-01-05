@@ -32,7 +32,7 @@ export class ProductsComponent implements OnInit {
         if (data != "") {
           this.Category = data
         } else {
-          this.activeCategory = true
+          this.activemessage = true
           this.message = "Debe crear por lo menos una categoria"
         }
       })

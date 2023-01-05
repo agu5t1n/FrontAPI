@@ -16,7 +16,6 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
   }
   addnewcategory() {
-    console.log(this.categoryname);
     this.category = {
       Type: this.categoryname
     }
